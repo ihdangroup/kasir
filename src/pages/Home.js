@@ -91,7 +91,7 @@ export default class Home extends Component {
           {makanans.map((makanan) => {
             return (
               <div className="card rounded-md bg-white shadow-lg  m-1 p-4 lg:w-[26%] lg:m-3 w-[46%]">
-                <img src="" alt="" className="w-full h-[100px] bg-slate-300" />
+                <img src={`assets/images/${makanan.category.nama.toLowerCase()}/${makanan.gambar}`} alt="" className="w-full h-[100px]" />
                 <div className="card-body m-2">
                   <h3 className="text-green-500 font-bold text-lg ">
                     {makanan.nama}
