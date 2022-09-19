@@ -3,90 +3,125 @@ import React, { Component } from "react";
 import Categories from "../components/Categories";
 import { API_URL } from "../utils";
 export default class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state= {
-            makanans:[],
-            categoryYangDipilih: 'Makanan',
-            keranjangs: []
-        }
-    }
-    getMakanans = () => {
-        axios.get(API_URL + 'products?category.nama='+ this.state.categoryYangDipilih).then((res) => {
-            this.setState({
-                makanans: res.data
-            })
-        })
-    }
-    componentDidMount() {
-        this.getMakanans()
-        this.getKeranjangs()
-    }
-    changeCategory = (value) => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      makanans: [],
+      categoryYangDipilih: "Makanan",
+      keranjangs: [],
+    };
+  }
+  getMakanans = () => {
+    axios
+      .get(API_URL + "products?category.nama=" + this.state.categoryYangDipilih)
+      .then((res) => {
         this.setState({
-            makanans: [],
-            categoryYangDipilih: value
-        })
-        axios.get(API_URL + 'products?category.nama='+ value).then((res) => {
-            this.setState({
-                makanans: res.data
-            })
-        })
-    }
-    masukKeranjang = (value) => {
-        axios.get(API_URL + 'keranjangs?product.id='+value.id).then((res) => {
-            if (res.data.length === 0) {
-                const keranjang = {
-                    jumlah:1,
-                    total_harga: value.harga,
-                    product: value
-                }
-                axios.post(API_URL + 'keranjangs', keranjang).then((res) => {
-                    alert(value.nama + ' berhasil dimasukan ke keranjang');
-                    this.getKeranjangs()
-                })
-            } else {
-                const keranjang = {
-                    jumlah: res.data[0].jumlah + 1,
-                    total_harga: res.data[0].total_harga + value.harga,
-                    product: value
-                }
-                axios.put(API_URL+'keranjangs/'+res.data[0].id, keranjang).then((res) => {
-                    alert(value.nama + ' berhasil masuk keranjang');
-                    this.getKeranjangs();
-                })
-            }
-        })
-    }
-    getKeranjangs = () => {
-        axios.get(API_URL + 'keranjangs').then((res) => {
-            this.setState({
-                keranjangs: res.data
-            })
-        })
-    }
+          makanans: res.data,
+        });
+      });
+  };
+  componentDidMount() {
+    this.getMakanans();
+    this.getKeranjangs();
+  }
+  changeCategory = (value) => {
+    this.setState({
+      makanans: [],
+      categoryYangDipilih: value,
+    });
+    axios.get(API_URL + "products?category.nama=" + value).then((res) => {
+      this.setState({
+        makanans: res.data,
+      });
+    });
+  };
+  masukKeranjang = (value) => {
+    axios.get(API_URL + "keranjangs?product.id=" + value.id).then((res) => {
+      if (res.data.length === 0) {
+        const keranjang = {
+          jumlah: 1,
+          total_harga: value.harga,
+          product: value,
+        };
+        axios.post(API_URL + "keranjangs", keranjang).then((res) => {
+          alert(value.nama + " berhasil dimasukan ke keranjang");
+          this.getKeranjangs();
+        });
+      } else {
+        const keranjang = {
+          jumlah: res.data[0].jumlah + 1,
+          total_harga: res.data[0].total_harga + value.harga,
+          product: value,
+        };
+        axios
+          .put(API_URL + "keranjangs/" + res.data[0].id, keranjang)
+          .then((res) => {
+            alert(value.nama + " berhasil masuk keranjang");
+            this.getKeranjangs();
+          });
+      }
+    });
+  };
+  getKeranjangs = () => {
+    axios.get(API_URL + "keranjangs").then((res) => {
+      this.setState({
+        keranjangs: res.data,
+      });
+    });
+  };
   render() {
-      const {makanans} = this.state
+    const { makanans } = this.state;
     return (
       <div className="container lg:px-10 py-6 px-2">
-          <Categories changeCategory={this.changeCategory}/>
+        <Categories changeCategory={this.changeCategory} />
         <div className="wraper px-4 py-6 flex flex-wrap w-full">
-            {
-                makanans.map((makanan) => {
-                    return(
-                        <div className="card bg-slate-200 m-1 p-4 lg:w-[26%] lg:m-3 w-[46%]">
-                            <img src="" alt="" className="w-full h-[100px] bg-slate-300" />
-                            <div className="card-body">
-                                <h3>{makanan.nama}</h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                <h6>Rp.{makanan.harga}</h6>
-                            </div>
-                            <button className="bg-slate-500 px-4 text-xs w-[100%] lg:w-[80%] py-2 text-white rounded-md mt-4" onClick={() => this.masukKeranjang(makanan)}>Masukan Keranjang</button>
-                        </div>
-                    )
-                })
-            }
-            </div>
+          {makanans.map((makanan) => {
+            return (
+              <div className="card bg-white shadow-lg  m-1 p-4 lg:w-[26%] lg:m-3 w-[46%]">
+                <img src="" alt="" className="w-full h-[100px] bg-slate-300" />
+                <div className="card-body m-2">
+                  <h3 className="text-green-500 font-bold text-lg ">
+                    {makanan.nama}
+                  </h3>
+                  <h6>Rp.{makanan.harga}</h6>
+                </div>
+                <button
+                  className="bg-green-500 h-[40px] px-4 text-center w-[45%] lg:w-[80%] text-white rounded-md mt-4"
+                  onClick={() => this.masukKeranjang(makanan)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    class="bi bi-cart3"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                  </svg>
+                </button>
+                <button
+                  className="bg-green-500 h-[40px] mx-1   px-4 text-center w-[45%] lg:w-[80%] text-white rounded-md mt-3"
+                  onClick={() => this.masukKeranjang(makanan)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-bag-heart"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5Zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0ZM14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
