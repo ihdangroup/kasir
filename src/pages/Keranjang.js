@@ -32,23 +32,6 @@ export default class Keranjang extends Component {
     return (
       <div>
         <div className="flex flex-wrap w-full py-4 lg:px-16 lg:py-10">
-          <div className="mx-6 my-4">
-              <Link to='/'>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              fill="currentColor"
-              class="bi bi-arrow-left"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-              />
-            </svg>
-            </Link>
-          </div>
           {keranjangs.length === 0
             ? "nggk ada barang"
             : keranjangs.map((barang) => {
