@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import { API_URL } from "../utils";
 
 export default class Keranjang extends Component {
@@ -12,10 +13,43 @@ export default class Keranjang extends Component {
     };
   }
   deleteKeranjang = (id) => {
-    axios.delete(API_URL + "keranjangs/" + id).then((res) => {
-      alert("produk berhasil dihapus dari keranjang");
-      this.getListKeranjang();
-    });
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'bg-green',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(API_URL + "keranjangs/" + id).then((res) => {
+          this.getListKeranjang();
+        });
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    })
   };
   componentDidMount() {
     this.getListKeranjang();
@@ -30,7 +64,7 @@ export default class Keranjang extends Component {
   render() {
     const { keranjangs } = this.state;
     return (
-      <div>
+      <div className="mt-16">
         <div className="flex flex-wrap w-full py-4 lg:px-16 lg:py-10">
           {keranjangs.length === 0
             ? "nggk ada barang"

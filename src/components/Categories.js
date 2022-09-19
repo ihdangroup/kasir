@@ -24,10 +24,10 @@ export default class Categories extends Component {
     }
     render() {
         return (
-            <div className="container flex flex-wrap text-center lg:px-20 px-4">
+            <div className="container flex flex-wrap mt-16 text-center lg:px-20 px-4">
                 {this.state.categories.map((category) => {
                     return(
-                        <p className="lg:px-6 text-sm shadow-md shadow-gray-300  py-3 bg-white w-[27%] text-pink-300 rounded-md m-2" onClick={() => this.props.changeCategory(category.nama)}>{category.nama}</p>
+                        <p className="lg:px-6 text-sm font-bold shadow-md shadow-gray-300  py-3 bg-white w-[27%] text-pink-300 rounded-md m-2" onClick={() => this.props.changeCategory(category.nama)}>{category.nama}</p>
                     )
                 })}
             </div>

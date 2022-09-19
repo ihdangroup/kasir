@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function NavbarComp() {
   const [scale, setScale] = useState(false);
   return (
-    <div className="navbar">
+    <div className="navbar top-0 left-0 fixed w-full">
       <div className="flex flex-wrap px-10 lg:px-16 text-white py-6 bg-green-500 items-center">
         <div className="flex justify-between w-[100%] lg:w-[50%]">
           <h1 className="text-xl font-bold">Kasir</h1>
