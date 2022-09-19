@@ -1,1 +1,1 @@
-export const API_URL = 'https://my-json-server.typicode.com/ihdangroup/kasir2/';
+export const API_URL = 'https://db-kasir.herokuapp.com/';
