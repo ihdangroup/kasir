@@ -36,33 +36,33 @@ export default class Keranjang extends Component {
             ? "nggk ada barang"
             : keranjangs.map((barang) => {
                 return (
-                  <div className=" py-3 w-full lg:w-[24%] bg-slate-100 flex flex-wrap px-4 my-2">
+                  <div className=" py-3 w-full lg:w-[24%] bg-white border-b-2 border-green-300 flex flex-wrap px-4 my-2">
                     <img
                       src=""
                       className="w-[30%] h-[100px] bg-gray-100"
                       alt=""
                     />
                     <div className="ml-4 text-whitew-[30%] ">
-                      <h1 className="text-md font-bold">
+                      <h1 className="text-green-500 font-bold text-lg">
                         {barang.product.nama}
                       </h1>
                       <div className="flex flex-wrap items-center">
-                        <button className="m-2 bg-slate-400 text-white font-bold p-3 text-xs">
+                        <button className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl">
                           -
                         </button>
-                        <h3>{barang.jumlah}</h3>
-                        <button className="m-2 bg-slate-400 font-bold text-white p-3 text-xs">
+                        <h3 className="text-sm pt-2">{barang.jumlah}</h3>
+                        <button className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl">
                           +
                         </button>
                       </div>
-                      <h4>Rp.{barang.total_harga}</h4>
-                    </div>
-                    <button
-                      className="bg-slate-400 w-full rounded-md text-sm my-2 text-white text-center font-sm px-6 py-4"
+                      <h4 className="text-sm pt-2 font-bold">Rp.{barang.total_harga}</h4>
+                      <button
+                      className="bg-pink-600 shadow-md h-[40px] mx-1   px-4 text-center  lg:w-[80%] text-white rounded-md mt-3"
                       onClick={() => this.deleteKeranjang(barang.id)}
                     >
                       Hapus Pesanan
                     </button>
+                    </div>
                   </div>
                 );
               })}
