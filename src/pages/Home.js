@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Swal from "sweetalert2";
 import Categories from "../components/Categories";
 import { API_URL } from "../utils";
+import { numberWithCommas } from "../utils/utils";
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -83,10 +84,10 @@ export default class Home extends Component {
     });
   };
   render() {
-    const { makanans } = this.state;
+    const { makanans, categoryYangDipilih } = this.state;
     return (
       <div className="container lg:px-10 py-6 px-2">
-        <Categories changeCategory={this.changeCategory} />
+        <Categories changeCategory={this.changeCategory} categoryYangDipilih={categoryYangDipilih} />
         <div className="wraper px-4 py-6 flex flex-wrap w-full">
           {makanans.map((makanan) => {
             return (
@@ -96,7 +97,7 @@ export default class Home extends Component {
                   <h3 className="text-green-500 font-bold text-lg ">
                     {makanan.nama}
                   </h3>
-                  <p className="text-sm pt-2">Rp. {makanan.harga}</p>
+                  <p className="text-sm pt-2">Rp. {numberWithCommas(makanan.harga)}</p>
                 </div>
                 <button
                   className="bg-green-500 shadow-md shadow-green-400 h-[40px] px-4 text-white rounded-md mt-4"

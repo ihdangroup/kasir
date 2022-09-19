@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { API_URL } from "../utils";
+import { numberWithCommas } from "../utils/utils";
 
 export default class Keranjang extends Component {
   constructor(props) {
@@ -89,7 +90,7 @@ export default class Keranjang extends Component {
                           +
                         </button>
                       </div>
-                      <h4 className="text-sm pt-2 font-bold">Rp.{barang.total_harga}</h4>
+                      <h4 className="text-sm pt-2 font-bold">Rp.{numberWithCommas(barang.total_harga)}</h4>
                       <button
                       className="bg-pink-600 shadow-md h-[40px] mx-1   px-4 text-center  lg:w-[80%] text-white rounded-md mt-3"
                       onClick={() => this.deleteKeranjang(barang.id)}
