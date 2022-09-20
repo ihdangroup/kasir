@@ -16,41 +16,43 @@ export default class Keranjang extends Component {
   deleteKeranjang = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'bg-green',
-        cancelButton: 'btn btn-danger'
+        confirmButton: "bg-green",
+        cancelButton: "btn btn-danger",
       },
-      buttonsStyling: false
-    })
-    
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios.delete(API_URL + "keranjangs/" + id).then((res) => {
-          this.getListKeranjang();
-        });
-        swalWithBootstrapButtons.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
-      }
-    })
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axios.delete(API_URL + "keranjangs/" + id).then((res) => {
+            this.getListKeranjang();
+          });
+          swalWithBootstrapButtons.fire(
+            "Deleted!",
+            "Your file has been deleted.",
+            "success"
+          );
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "Your imaginary file is safe :)",
+            "error"
+          );
+        }
+      });
   };
   componentDidMount() {
     this.getListKeranjang();
@@ -61,6 +63,35 @@ export default class Keranjang extends Component {
         keranjangs: res.data,
       });
     });
+  };
+  tambah = (keranjang) => {
+    const keranjangBaru = {
+      jumlah: keranjang.jumlah + 1,
+      total_harga: keranjang.total_harga + keranjang.product.harga,
+      product: keranjang.product,
+    };
+    axios
+      .put(API_URL + "keranjangs/" + keranjang.id, keranjangBaru)
+      .then((res) => {
+        this.getListKeranjang();
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
+  kurang = (keranjang) => {
+    if (keranjang.jumlah > 1) {
+      const keranjangBaru = {
+        jumlah: keranjang.jumlah - 1,
+        total_harga: keranjang.total_harga - keranjang.product.harga,
+        product: keranjang.product,
+      };
+      axios
+        .put(API_URL + "keranjangs/" + keranjang.id, keranjangBaru)
+        .then((res) => {
+          this.getListKeranjang();
+        });
+    }
   };
   render() {
     const { keranjangs } = this.state;
@@ -82,21 +113,29 @@ export default class Keranjang extends Component {
                         {barang.product.nama}
                       </h1>
                       <div className="flex flex-wrap items-center">
-                        <button className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl">
+                        <button
+                          className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl"
+                          onClick={() => this.kurang(barang)}
+                        >
                           -
                         </button>
                         <h3 className="text-sm pt-2">{barang.jumlah}</h3>
-                        <button className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl">
+                        <button
+                          className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl"
+                          onClick={() => this.tambah(barang)}
+                        >
                           +
                         </button>
                       </div>
-                      <h4 className="text-sm pt-2 font-bold">Rp.{numberWithCommas(barang.total_harga)}</h4>
+                      <h4 className="text-sm pt-2 font-bold">
+                        Rp.{numberWithCommas(barang.total_harga)}
+                      </h4>
                       <button
-                      className="bg-pink-600 shadow-md h-[40px] mx-1   px-4 text-center  lg:w-[80%] text-white rounded-md mt-3"
-                      onClick={() => this.deleteKeranjang(barang.id)}
-                    >
-                      Hapus Pesanan
-                    </button>
+                        className="bg-pink-600 shadow-md h-[40px] mx-1   px-4 text-center  lg:w-[80%] text-white rounded-md mt-3"
+                        onClick={() => this.deleteKeranjang(barang.id)}
+                      >
+                        Hapus Pesanan
+                      </button>
                     </div>
                   </div>
                 );
