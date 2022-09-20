@@ -138,6 +138,9 @@ export default class Keranjang extends Component {
                       <h1 className="text-green-500 font-bold text-lg">
                         {barang.product.nama}
                       </h1>
+                      <h4 className="text-sm pt-2 font-bold">
+                        Rp.{numberWithCommas(barang.total_harga)}
+                      </h4>
                       <div className="flex flex-wrap items-center">
                         <button
                           className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl"
@@ -153,9 +156,6 @@ export default class Keranjang extends Component {
                           +
                         </button>
                       </div>
-                      <h4 className="text-sm pt-2 font-bold">
-                        Rp.{numberWithCommas(barang.total_harga)}
-                      </h4>
                       <button
                         className="bg-pink-600 shadow-md h-[40px] mx-1   px-4 text-center  lg:w-[80%] text-white rounded-md mt-3"
                         onClick={() => this.deleteKeranjang(barang.id)}
