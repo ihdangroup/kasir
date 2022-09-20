@@ -54,9 +54,6 @@ export default class Keranjang extends Component {
         }
       });
   };
-  componentDidMount() {
-    this.getListKeranjang();
-  }
   getListKeranjang = () => {
     axios.get(API_URL + "keranjangs").then((res) => {
       this.setState({
@@ -93,6 +90,9 @@ export default class Keranjang extends Component {
         });
     }
   };
+  componentDidMount() {
+    this.getListKeranjang();
+  }
   render() {
     const { keranjangs } = this.state;
     return (
