@@ -10,11 +10,6 @@ export default class Sukses extends Component {
       keranjangs.map(async (keranjang) => {
         return await axios
           .delete(API_URL + "keranjangs/" + keranjang.id)
-          .then((res) => {
-            console.log("data di keranjang berhasil dihapus");
-          }).catch((e) => {
-            console.log(e.message);
-          })
       });
     }).catch((e) => {
       console.log(e.message)
