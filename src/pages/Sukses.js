@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { API_URL } from "../utils";
 
 export default class Sukses extends Component {
