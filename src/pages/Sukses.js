@@ -18,7 +18,7 @@ export default class Sukses extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="mt-16">
         <div className="mx-6 h-[10vh] flex items-end">
           <Link to="/">
             <svg
