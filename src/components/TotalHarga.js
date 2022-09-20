@@ -1,14 +1,13 @@
-import axios from "axios";
+
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { API_URL } from "../utils";
 import { numberWithCommas } from "../utils/utils";
 
 export default class TotalHarga extends Component {
   handleBayar = (totalBayar) => {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "success",
         title: "Terima kasih sudah berbelanja di toko kami",
         showConfirmButton: false,

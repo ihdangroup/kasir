@@ -91,7 +91,7 @@ export default class Home extends Component {
         <div className="wraper px-4 py-6 flex flex-wrap w-full">
           {makanans.map((makanan) => {
             return (
-              <div className="card rounded-md bg-white shadow-lg  m-1 p-4 lg:w-[26%] lg:m-3 w-[46%]">
+              <div className="card rounded-md bg-white shadow-lg  m-1 p-4 lg:w-[20%] lg:m-3 w-[46%]" key={makanan.id}>
                 <img src={`assets/images/${makanan.category.nama.toLowerCase()}/${makanan.gambar}`} alt="" className="w-full h-[100px]" />
                 <div className="card-body m-2">
                   <h3 className="text-green-500 font-bold text-lg ">
@@ -100,7 +100,7 @@ export default class Home extends Component {
                   <p className="text-sm pt-2">Rp. {numberWithCommas(makanan.harga)}</p>
                 </div>
                 <button
-                  className="bg-green-500 shadow-md shadow-green-400 h-[40px] px-4 text-white rounded-md mt-4"
+                  className="bg-green-500 shadow-md flex justify-center items-center shadow-green-400 w-full h-[40px] px-4 text-white rounded-md mt-4"
                   onClick={() => this.masukKeranjang(makanan)}
                 >
                   <svg
@@ -114,9 +114,8 @@ export default class Home extends Component {
                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                   </svg>
                 </button>
-                <button
-                  className="bg-white shadow-md shadow-gray-300  h-[40px] mx-1 px-4 text-center  text-white rounded-md mt-3"
-                  onClick={() => this.masukKeranjang(makanan)}
+                {/*<button
+                  className="shadow-md shadow-gray-300  h-[40px] mx-1 px-4 text-center  text-white rounded-md mt-3"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +130,7 @@ export default class Home extends Component {
                       d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5Zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0ZM14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"
                     />
                   </svg>
-                </button>
+                </button>*/}
               </div>
             );
           })}

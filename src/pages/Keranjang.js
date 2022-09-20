@@ -40,7 +40,7 @@ export default class Keranjang extends Component {
           });
           swalWithBootstrapButtons.fire(
             "Deleted!",
-            "Your file has been deleted.",
+            "Product in cart has been deleted.",
             "success"
           );
         } else if (
@@ -49,7 +49,7 @@ export default class Keranjang extends Component {
         ) {
           swalWithBootstrapButtons.fire(
             "Cancelled",
-            "Your imaginary file is safe :)",
+            "Your product in cart is safe :)",
             "error"
           );
         }
@@ -105,7 +105,7 @@ export default class Keranjang extends Component {
               width="24"
               height="24"
               fill="currentColor"
-              class="bi bi-arrow-bar-left"
+              className="bi bi-arrow-bar-left"
               viewBox="0 0 16 16"
             >
               <path
@@ -121,17 +121,17 @@ export default class Keranjang extends Component {
         <div className="flex flex-wrap w-full py-4 lg:px-16 lg:py-10 mb-[20vh]">
           {keranjangs.length === 0
             ? <div className="h-[65vh] flex items-center flex-col text-center w-full justify-center">
-              <img src="assets/images/cart.svg" alt="cart" width="200px" height="200px" />
+              <img src="assets/images/cart.svg" alt="cart" width="200px"/>
               <h3 className="mt-4 text-sm font-semibold px-6 flex flex-wrap justify-center"><span className="text-green-500 text-2xl w-full">Ups!</span> Belum ada produk dikeranjang</h3>
             </div>
             : keranjangs.map((barang) => {
                 return (
-                  <div className=" py-3 w-full lg:w-[24%] bg-white border-b-2 border-green-300 flex flex-wrap px-4 my-2">
+                  <div key={barang.id} className=" py-3 w-full lg:w-[45%] bg-white border-b-2 border-green-300 flex flex-wrap px-4 my-2">
                     <img
                       src={`assets/images/${barang.product.category.nama.toLowerCase()}/${
                         barang.product.gambar
                       }`}
-                      className="w-[30%] h-[100px]"
+                      className="w-[30%] h-[100px] rounded-md"
                       alt=""
                     />
                     <div className="ml-4 text-whitew-[30%] ">
@@ -157,7 +157,7 @@ export default class Keranjang extends Component {
                         </button>
                       </div>
                       <button
-                        className="bg-pink-600 shadow-md h-[40px] mx-1   px-4 text-center  lg:w-[80%] text-white rounded-md mt-3"
+                        className="bg-pink-600 text-sm hover:bg-pink-300 shadow-md h-[40px] mx-1   px-4 text-center  lg:w-[100%] text-white rounded-md mt-3"
                         onClick={() => this.deleteKeranjang(barang.id)}
                       >
                         Hapus Pesanan

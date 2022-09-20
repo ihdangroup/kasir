@@ -7,14 +7,18 @@ export default class Sukses extends Component {
   componentDidMount() {
     axios.get(API_URL + "keranjangs").then((res) => {
       const keranjangs = res.data;
-      keranjangs.map((keranjang) => {
-        return axios
+      keranjangs.map(async (keranjang) => {
+        return await axios
           .delete(API_URL + "keranjangs/" + keranjang.id)
           .then((res) => {
             console.log("data di keranjang berhasil dihapus");
-          });
+          }).catch((e) => {
+            console.log(e.message);
+          })
       });
-    });
+    }).catch((e) => {
+      console.log(e.message)
+    })
   }
   render() {
     return (
@@ -26,7 +30,7 @@ export default class Sukses extends Component {
               width="24"
               height="24"
               fill="currentColor"
-              class="bi bi-arrow-bar-left"
+              className="bi bi-arrow-bar-left"
               viewBox="0 0 16 16"
             >
               <path
