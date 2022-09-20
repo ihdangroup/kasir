@@ -104,7 +104,7 @@ export default class Keranjang extends Component {
                 return (
                   <div className=" py-3 w-full lg:w-[24%] bg-white border-b-2 border-green-300 flex flex-wrap px-4 my-2">
                     <img
-                      src={`assets/images/${barang.product.category.nama}/${barang.product.gambar}`}
+                      src={`assets/images/${barang.product.category.nama.toLowerCase()}/${barang.product.gambar}`}
                       className="w-[30%] h-[100px]"
                       alt=""
                     />
