@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import Swal from "sweetalert2";
 import Categories from "../components/Categories";
-import {Skeleton} from "../components/Skeleton";
+import { Skeleton } from "../components/Skeleton";
 import { API_URL } from "../utils";
 import { numberWithCommas } from "../utils/utils";
 export default class Home extends Component {
@@ -15,6 +15,13 @@ export default class Home extends Component {
       loading: false,
     };
   }
+  getKeranjangs = () => {
+    axios.get(API_URL + "keranjangs").then((res) => {
+      this.setState({
+        keranjangs: res.data,
+      });
+    });
+  };
   getMakanans = () => {
     this.setState({
       loading: true,
@@ -28,10 +35,7 @@ export default class Home extends Component {
         });
       });
   };
-  componentDidMount() {
-    this.getMakanans();
-    this.getKeranjangs();
-  }
+
   changeCategory = (value) => {
     this.setState({
       makanans: [],
@@ -84,13 +88,11 @@ export default class Home extends Component {
       }
     });
   };
-  getKeranjangs = () => {
-    axios.get(API_URL + "keranjangs").then((res) => {
-      this.setState({
-        keranjangs: res.data,
-      });
-    });
-  };
+
+  componentDidMount() {
+    this.getMakanans();
+    this.getKeranjangs();
+  }
   render() {
     const { makanans, categoryYangDipilih, loading } = this.state;
     return (
@@ -100,11 +102,11 @@ export default class Home extends Component {
           categoryYangDipilih={categoryYangDipilih}
         />
         {loading ? (
-        <div className="animate-pulse wraper px-4 py-6 flex flex-wrap w-full">
-              <Skeleton/>
-              <Skeleton/>
-              <Skeleton/>
-              <Skeleton/>
+          <div className="animate-pulse wraper px-4 py-6 flex flex-wrap w-full">
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
           </div>
         ) : (
           <div className="wraper px-4 py-6 flex flex-wrap w-full">

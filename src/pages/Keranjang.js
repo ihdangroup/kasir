@@ -14,6 +14,13 @@ export default class Keranjang extends Component {
       keranjangs: [],
     };
   }
+  getListKeranjang = () => {
+    axios.get(API_URL + "keranjangs").then((res) => {
+      this.setState({
+        keranjangs: res.data,
+      });
+    });
+  };
   deleteKeranjang = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -55,13 +62,7 @@ export default class Keranjang extends Component {
         }
       });
   };
-  getListKeranjang = () => {
-    axios.get(API_URL + "keranjangs").then((res) => {
-      this.setState({
-        keranjangs: res.data,
-      });
-    });
-  };
+
   tambah = (keranjang) => {
     const keranjangBaru = {
       jumlah: keranjang.jumlah + 1,
@@ -99,7 +100,7 @@ export default class Keranjang extends Component {
     return (
       <div className="mt-16">
         <div className="mx-6 h-[10vh] flex items-end">
-          <Link to='/'>
+          <Link to="/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -119,54 +120,62 @@ export default class Keranjang extends Component {
           </h2>
         </div>
         <div className="flex flex-wrap w-full py-4 lg:px-16 lg:py-10 mb-[20vh]">
-          {keranjangs.length === 0
-            ? <div className="h-[65vh] flex items-center flex-col text-center w-full justify-center">
-              <img src="assets/images/cart.svg" alt="cart" width="200px"/>
-              <h3 className="mt-4 text-sm font-semibold px-6 flex flex-wrap justify-center"><span className="text-green-500 text-2xl w-full">Ups!</span> Belum ada produk dikeranjang</h3>
+          {keranjangs.length === 0 ? (
+            <div className="h-[65vh] flex items-center flex-col text-center w-full justify-center">
+              <img src="assets/images/cart.svg" alt="cart" width="200px" />
+              <h3 className="mt-4 text-sm font-semibold px-6 flex flex-wrap justify-center">
+                <span className="text-green-500 text-2xl w-full">Ups!</span>{" "}
+                Belum ada produk dikeranjang
+              </h3>
             </div>
-            : keranjangs.map((barang) => {
-                return (
-                  <div key={barang.id} className=" py-3 w-full lg:w-[45%] bg-white border-b-2 border-green-300 flex flex-wrap px-4 my-2">
-                    <img
-                      src={`assets/images/${barang.product.category.nama.toLowerCase()}/${
-                        barang.product.gambar
-                      }`}
-                      className="w-[30%] h-[100px] rounded-md"
-                      alt=""
-                    />
-                    <div className="ml-4 text-whitew-[30%] ">
-                      <h1 className="text-green-500 font-bold text-lg">
-                        {barang.product.nama}
-                      </h1>
-                      <h4 className="text-sm pt-2 font-bold">
-                        Rp.{numberWithCommas(barang.total_harga)}
-                      </h4>
-                      <div className="flex flex-wrap items-center">
-                        <button
-                          className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl"
-                          onClick={() => this.kurang(barang)}
-                        >
-                          -
-                        </button>
-                        <h3 className="text-sm pt-2">{barang.jumlah}</h3>
-                        <button
-                          className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl"
-                          onClick={() => this.tambah(barang)}
-                        >
-                          +
-                        </button>
-                      </div>
+          ) : (
+            keranjangs.map((barang) => {
+              return (
+                <div
+                  key={barang.id}
+                  className=" py-3 w-full lg:w-[45%] bg-white border-b-2 border-green-300 flex flex-wrap px-4 my-2"
+                >
+                  <img
+                    src={`assets/images/${barang.product.category.nama.toLowerCase()}/${
+                      barang.product.gambar
+                    }`}
+                    className="w-[30%] h-[100px] rounded-md"
+                    alt=""
+                  />
+                  <div className="ml-4 text-whitew-[30%] ">
+                    <h1 className="text-green-500 font-bold text-lg">
+                      {barang.product.nama}
+                    </h1>
+                    <h4 className="text-sm pt-2 font-bold">
+                      Rp.{numberWithCommas(barang.total_harga)}
+                    </h4>
+                    <div className="flex flex-wrap items-center">
                       <button
-                        className="bg-pink-600 text-sm hover:bg-pink-300 shadow-md h-[40px] mx-1   px-4 text-center  lg:w-[100%] text-white rounded-md mt-3"
-                        onClick={() => this.deleteKeranjang(barang.id)}
+                        className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl"
+                        onClick={() => this.kurang(barang)}
                       >
-                        Hapus Pesanan
+                        -
+                      </button>
+                      <h3 className="text-sm pt-2">{barang.jumlah}</h3>
+                      <button
+                        className="bg-white shadow-sm shadow-gray-300  h-[30px] mx-1   px-4 text-center text-green-500 rounded-md mt-3 text-xl"
+                        onClick={() => this.tambah(barang)}
+                      >
+                        +
                       </button>
                     </div>
-                    <TotalHarga keranjangs={this.state.keranjangs}/>
+                    <button
+                      className="bg-pink-600 text-sm hover:bg-pink-300 shadow-md h-[40px] mx-1   px-4 text-center  lg:w-[100%] text-white rounded-md mt-3"
+                      onClick={() => this.deleteKeranjang(barang.id)}
+                    >
+                      Hapus Pesanan
+                    </button>
                   </div>
-                );
-              })}
+                  <TotalHarga keranjangs={this.state.keranjangs} />
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
     );
