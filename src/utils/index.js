@@ -1,1 +1,1 @@
-export const API_URL = 'https://ill-cyan-mite-shoe.cyclic.app/';
+export const API_URL = "https://db-ihdanmall.vercel.app/";

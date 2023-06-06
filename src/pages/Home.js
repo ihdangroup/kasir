@@ -58,6 +58,7 @@ export default class Home extends Component {
           product: value,
         };
         axios.post(API_URL + "keranjangs", keranjang).then((res) => {
+          this.getKeranjangs();
           Swal.fire({
             position: "center",
             icon: "success",
@@ -65,7 +66,6 @@ export default class Home extends Component {
             showConfirmButton: false,
             timer: 1500,
           });
-          this.getKeranjangs();
         });
       } else {
         const keranjang = {
@@ -76,6 +76,7 @@ export default class Home extends Component {
         axios
           .put(API_URL + "keranjangs/" + res.data[0].id, keranjang)
           .then((res) => {
+            this.getKeranjangs();
             Swal.fire({
               position: "center",
               icon: "success",
@@ -83,7 +84,6 @@ export default class Home extends Component {
               showConfirmButton: false,
               timer: 1500,
             });
-            this.getKeranjangs();
           });
       }
     });
