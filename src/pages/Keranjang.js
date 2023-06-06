@@ -120,7 +120,7 @@ export default class Keranjang extends Component {
           </h2>
         </div>
         <div className="flex flex-wrap w-full py-4 lg:px-16 lg:py-10 mb-[20vh]">
-          {keranjangs.length === 0 ? (
+          {keranjangs.length < 0 ? (
             <div className="h-[65vh] flex items-center flex-col text-center w-full justify-center">
               <img src="assets/images/cart.svg" alt="cart" width="200px" />
               <h3 className="mt-4 text-sm font-semibold px-6 flex flex-wrap justify-center">

@@ -59,13 +59,11 @@ export default class Home extends Component {
         };
         axios.post(API_URL + "keranjangs", keranjang).then((res) => {
           this.getKeranjangs();
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Produk berhasil dimasukan ke keranjang",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          swalWithBootstrapButtons.fire(
+            "Success",
+            "product success add to cart)",
+            "error"
+          );
         });
       } else {
         const keranjang = {
